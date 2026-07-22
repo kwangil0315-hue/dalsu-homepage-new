@@ -34,7 +34,31 @@ import {
   ImagePlus
 } from "lucide-react";
 import React, { useState, useEffect } from "react";
+import logoDefaultImg from "./assets/images/logo/dalsu-logo.jpg";
 import heroSlide01Img from "./assets/images/hero-slide-01.jpg";
+
+import problemJobSecurityImg from "./assets/images/services/problem-job-security.jpg";
+import problemAiProofImg from "./assets/images/services/problem-ai-proof.jpg";
+import problemLifetimeSkillImg from "./assets/images/services/problem-lifetime-skill.jpg";
+
+import curriculumDay1Img from "./assets/images/education/curriculum-day1-theory.jpg";
+import curriculumDay2Img from "./assets/images/education/curriculum-day2-technique.jpg";
+import curriculumDay3Img from "./assets/images/education/curriculum-day3-leak-detection.jpg";
+import curriculumDay4Img from "./assets/images/education/curriculum-day4-jet-washing.jpg";
+import curriculumDay5Img from "./assets/images/education/curriculum-day5-marketing.jpg";
+
+import supportOrderDispatchImg from "./assets/images/services/support-order-dispatch.jpg";
+import supportTerritoryProtectionImg from "./assets/images/services/support-territory-protection.jpg";
+import supportTechnicalMentoringImg from "./assets/images/services/support-technical-mentoring.jpg";
+
+import testimonialKimImg from "./assets/images/gallery/testimonial-student-kim.jpg";
+import testimonialLeeImg from "./assets/images/gallery/testimonial-student-lee.jpg";
+import testimonialParkImg from "./assets/images/gallery/testimonial-student-park.jpg";
+import testimonialChoiImg from "./assets/images/gallery/testimonial-student-choi.jpg";
+
+import outlookAiTechImg from "./assets/images/services/outlook-ai-technology.jpg";
+import appScreenshotImg from "./assets/images/services/app-screenshot.jpg";
+import ctaCounselorBgImg from "./assets/images/backgrounds/cta-counselor-bg.jpg";
 
 const CTAButton = ({ className = "", children, variant = "primary" }: { className?: string, children: React.ReactNode, variant?: "primary" | "secondary" | "outline" }) => {
   const baseStyles = "px-8 py-4 rounded-full font-bold text-lg transition-all duration-300 flex items-center justify-center gap-2 group";
@@ -100,7 +124,7 @@ export default function App() {
 
   // Dynamic Logo State
   const [logoUrl, setLogoUrl] = useState<string>(() => {
-    return localStorage.getItem('dalsu_custom_logo_url') || '/images/logo/dalsu-logo.jpg';
+    return localStorage.getItem('dalsu_custom_logo_url') || logoDefaultImg;
   });
   const [logoHeight, setLogoHeight] = useState<number>(() => {
     const saved = localStorage.getItem('dalsu_custom_logo_height');
@@ -129,7 +153,7 @@ export default function App() {
   };
 
   const handleResetLogo = () => {
-    setLogoUrl('/images/logo/dalsu-logo.jpg');
+    setLogoUrl(logoDefaultImg);
     setLogoHeight(44);
     localStorage.removeItem('dalsu_custom_logo_url');
     localStorage.removeItem('dalsu_custom_logo_height');
@@ -370,19 +394,19 @@ export default function App() {
                 badge: "미래 생존 전략",
                 title: <>평생 직장이 <span className="text-point-yellow">사라진 시대</span></>,
                 desc: <>회사가 나를 책임져주지 않는 시대,{"\n"}<span className="text-white font-bold">나만의 확실한 무기</span>가 필요합니다.</>,
-                image: "/images/services/problem-job-security.jpg"
+                image: problemJobSecurityImg
               },
               {
                 badge: "대체 불가능한 가치",
                 title: <><span className="text-point-yellow">AI가 대체할 수 없는</span> 기술</>,
                 desc: <>현장 기반의 배관 기술은{"\n"}<span className="text-white font-bold">로봇이나 AI가 결코 흉내낼 수 없습니다.</span></>,
-                image: "/images/services/problem-ai-proof.jpg"
+                image: problemAiProofImg
               },
               {
                 badge: "평생 자산 확보",
                 title: <>자산이 되는 <span className="text-point-yellow">전문 기술</span></>,
                 desc: <>한 번 배운 기술은 <span className="text-white font-bold">평생의 자산</span>이 되어{"\n"}당신의 안정적인 수익을 보장합니다.</>,
-                image: "/images/services/problem-lifetime-skill.jpg"
+                image: problemLifetimeSkillImg
               }
             ].map((item, i) => (
               <motion.div 
@@ -501,11 +525,11 @@ export default function App() {
             
             <div className="space-y-12">
               {[
-                { day: "01", title: <><span className="text-point-yellow">장비교육</span> 및 이해</>, desc: "전문 배관 장비의 구조와 원리 이해,\n장비 운용법 및 안전 교육", icon: <Wrench />, image: "/images/education/curriculum-day1-theory.jpg" },
-                { day: "02", title: <><span className="text-point-yellow">기술</span> 훈련</>, desc: "상황별 배관케어 및 막힘 해결 실습,\n핵심 현장 기술 집중 훈련", icon: <Briefcase />, image: "/images/education/curriculum-day2-technique.jpg" },
-                { day: "03", title: <><span className="text-point-yellow">현장기술</span> 실습</>, desc: "실제 현장 맞춤형 기술 실습 및\n실전 고압세척 노하우 습득", icon: <Zap />, image: "/images/education/curriculum-day3-leak-detection.jpg" },
-                { day: "04", title: <><span className="text-point-yellow">홈페이지 / 블로그</span> 제작</>, desc: "신뢰감을 주는 홈페이지형 블로그 제작 및\n맞춤형 홈페이지 제작 지원", icon: <LayoutGrid />, image: "/images/education/curriculum-day4-jet-washing.jpg" },
-                { day: "05", title: <><span className="text-point-yellow">AI 마케팅</span> & 블로그 자동화</>, desc: "AI를 활용한 실전 마케팅 기법 및\n블로그 자동화 관리 시스템 구축", icon: <Cpu />, image: "/images/education/curriculum-day5-marketing.jpg" }
+                { day: "01", title: <><span className="text-point-yellow">장비교육</span> 및 이해</>, desc: "전문 배관 장비의 구조와 원리 이해,\n장비 운용법 및 안전 교육", icon: <Wrench />, image: curriculumDay1Img },
+                { day: "02", title: <><span className="text-point-yellow">기술</span> 훈련</>, desc: "상황별 배관케어 및 막힘 해결 실습,\n핵심 현장 기술 집중 훈련", icon: <Briefcase />, image: curriculumDay2Img },
+                { day: "03", title: <><span className="text-point-yellow">현장기술</span> 실습</>, desc: "실제 현장 맞춤형 기술 실습 및\n실전 고압세척 노하우 습득", icon: <Zap />, image: curriculumDay3Img },
+                { day: "04", title: <><span className="text-point-yellow">홈페이지 / 블로그</span> 제작</>, desc: "신뢰감을 주는 홈페이지형 블로그 제작 및\n맞춤형 홈페이지 제작 지원", icon: <LayoutGrid />, image: curriculumDay4Img },
+                { day: "05", title: <><span className="text-point-yellow">AI 마케팅</span> & 블로그 자동화</>, desc: "AI를 활용한 실전 마케팅 기법 및\n블로그 자동화 관리 시스템 구축", icon: <Cpu />, image: curriculumDay5Img }
               ].map((item, i) => (
                 <motion.div 
                   key={i}
@@ -640,19 +664,19 @@ export default function App() {
                 badge: "창업 실전 인프라 지원",
                 title: <><span className="text-point-yellow">본사 오더</span> 배정 시스템</>, 
                 desc: <>마케팅 걱정 마세요. 본사 콜센터에서 직접{"\n"}<span className="text-white font-bold">오더를 지역별로 매칭</span>하여 안정적인 일감을 제공합니다.</>,
-                image: "/images/services/support-order-dispatch.jpg"
+                image: supportOrderDispatchImg
               },
               { 
                 badge: "지역 상권 보호 지원",
                 title: <><span className="text-point-yellow">지역 독점권</span> 및 상권 보호</>, 
                 desc: <>활동 지역의 독점 권한을 부여하여 <span className="text-white font-bold">불필요한 경쟁 없이</span>{"\n"}오직 기술 서비스에만 집중할 수 있도록 돕습니다.</>,
-                image: "/images/services/support-territory-protection.jpg"
+                image: supportTerritoryProtectionImg
               },
               { 
                 badge: "실전 기술 멘토링 지원",
                 title: <>24/7 <span className="text-point-yellow">실시간 기술 멘토링</span></>, 
                 desc: <>현장에서 예기치 못한 난관에 부딪혔을 때,{"\n"}<span className="text-white font-bold">본사 베테랑 전문가</span>가 실시간 영상 가이드를 제공합니다.</>,
-                image: "/images/services/support-technical-mentoring.jpg"
+                image: supportTechnicalMentoringImg
               }
             ].map((item, i) => (
               <motion.div 
@@ -723,33 +747,33 @@ export default function App() {
           >
             {[
               {
-                image: "/images/gallery/testimonial-student-kim.jpg",
+                image: testimonialKimImg,
                 title: "퇴사 후 5일 만에 첫 오더,\n이제는 월 1,000만원 찍습니다",
                 name: "김OO 수강생 | 서울 강남점"
               },
               {
-                image: "/images/gallery/testimonial-student-lee.jpg",
+                image: testimonialLeeImg,
                 title: "여성 창업자도 충분히 가능해요!\n본사의 꼼꼼한 케어 덕분입니다",
                 name: "이OO 수강생 | 경기 수원점"
               },
               {
-                image: "/images/gallery/testimonial-student-park.jpg",
+                image: testimonialParkImg,
                 title: "기술 하나로 인생 역전,\nAI 시대에 가장 확실한 투자였습니다",
                 name: "박OO 수강생 | 부산 해운대점"
               },
               {
-                image: "/images/gallery/testimonial-student-choi.jpg",
+                image: testimonialChoiImg,
                 title: "막막했던 창업의 길,\n배관케어 마스터 교육원이 지름길이 되었네요",
                 name: "최OO 수강생 | 인천 송도점"
               },
               // Duplicate for seamless loop
               {
-                image: "/images/gallery/testimonial-student-kim.jpg",
+                image: testimonialKimImg,
                 title: "퇴사 후 5일 만에 첫 오더,\n이제는 월 1,000만원 찍습니다",
                 name: "김OO 수강생 | 서울 강남점"
               },
               {
-                image: "/images/gallery/testimonial-student-lee.jpg",
+                image: testimonialLeeImg,
                 title: "여성 창업자도 충분히 가능해요!\n본사의 꼼꼼한 케어 덕분입니다",
                 name: "이OO 수강생 | 경기 수원점"
               }
@@ -800,7 +824,7 @@ export default function App() {
               className="relative w-full max-w-[320px] md:max-w-md aspect-video rounded-3xl overflow-hidden shadow-2xl mb-10 border-4 border-white/10"
             >
               <img 
-                src="/images/services/outlook-ai-technology.jpg" 
+                src={outlookAiTechImg} 
                 alt="AI vs Human" 
                 className="w-full h-full object-cover grayscale"
                 referrerPolicy="no-referrer"
@@ -883,7 +907,7 @@ export default function App() {
                     </div>
                   </div>
                   <img 
-                    src="/images/services/app-screenshot.jpg" 
+                    src={appScreenshotImg} 
                     alt="App Screenshot" 
                     className="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-overlay"
                     referrerPolicy="no-referrer"
@@ -924,7 +948,7 @@ export default function App() {
         {/* Background Image with Overlay */}
         <div className="absolute inset-0 z-0">
           <img 
-            src="/images/backgrounds/cta-counselor-bg.jpg" 
+            src={ctaCounselorBgImg} 
             alt="Counselor Background" 
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
