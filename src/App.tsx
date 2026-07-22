@@ -33,19 +33,19 @@ import React, { useState, useEffect } from "react";
 
 const slides = [
   {
-    image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&q=80&w=1920",
+    image: "/images/hero/hero-slide-01.jpg",
     title: <>배관은 집의 <span className="text-point-yellow">혈관</span>입니다{"\n"}우리는 <span className="text-point-yellow">배관 전문의</span>를 양성합니다</>,
-    subtitle: "배관케어마스터 | 기술의 가치를 아는 사람들"
+    subtitle: "달수배관케어 마스터 교육원 | 기술의 가치를 아는 사람들"
   },
   {
-    image: "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&q=80&w=1920",
+    image: "/images/hero/hero-slide-02.jpg",
     title: <>단 <span className="text-point-yellow">5일</span>의 투자로{"\n"}월 <span className="text-point-yellow">1000만원</span> 수익의 주인공이 되세요</>,
-    subtitle: "배관케어마스터 | 압도적인 수익 창출의 기회"
+    subtitle: "달수배관케어 마스터 교육원 | 압도적인 수익 창출의 기회"
   },
   {
-    image: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&q=80&w=1920",
+    image: "/images/hero/hero-slide-03.jpg",
     title: <><span className="text-point-yellow">AI도 로봇도</span> 대체 불가{"\n"}은퇴 걱정 없는 <span className="text-point-yellow">평생 기술 독립</span></>,
-    subtitle: "배관케어마스터 | 기술이 곧 자산이 되는 시대"
+    subtitle: "달수배관케어 마스터 교육원 | 기술이 곧 자산이 되는 시대"
   }
 ];
 
@@ -156,9 +156,9 @@ export default function App() {
                 <FlaskConical className="w-10 h-10 text-blue-600" />
                 <div className="absolute -top-1 -right-1 w-3 h-3 bg-cyan-400 rounded-full animate-pulse" />
               </motion.div>
-              <div className="flex flex-col -space-y-1">
-                <span className="text-xl font-black text-navy-900 tracking-tighter">배관케어</span>
-                <span className="text-xl font-black text-navy-900 tracking-tighter">마스터</span>
+              <div className="flex flex-col -space-y-0.5">
+                <span className="text-lg md:text-xl font-black text-navy-900 tracking-tighter">달수배관케어</span>
+                <span className="text-[10px] md:text-xs font-bold text-blue-600 tracking-wider">마스터 교육원</span>
               </div>
             </div>
           </div>
@@ -339,19 +339,19 @@ export default function App() {
                 badge: "미래 생존 전략",
                 title: <>평생 직장이 <span className="text-point-yellow">사라진 시대</span></>,
                 desc: <>회사가 나를 책임져주지 않는 시대,{"\n"}<span className="text-white font-bold">나만의 확실한 무기</span>가 필요합니다.</>,
-                image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&q=80&w=1200"
+                image: "/images/services/problem-job-security.jpg"
               },
               {
                 badge: "대체 불가능한 가치",
                 title: <><span className="text-point-yellow">AI가 대체할 수 없는</span> 기술</>,
                 desc: <>현장 기반의 배관 기술은{"\n"}<span className="text-white font-bold">로봇이나 AI가 결코 흉내낼 수 없습니다.</span></>,
-                image: "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?auto=format&fit=crop&q=80&w=1200"
+                image: "/images/services/problem-ai-proof.jpg"
               },
               {
                 badge: "평생 자산 확보",
                 title: <>자산이 되는 <span className="text-point-yellow">전문 기술</span></>,
                 desc: <>한 번 배운 기술은 <span className="text-white font-bold">평생의 자산</span>이 되어{"\n"}당신의 안정적인 수익을 보장합니다.</>,
-                image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=1200"
+                image: "/images/services/problem-lifetime-skill.jpg"
               }
             ].map((item, i) => (
               <motion.div 
@@ -406,7 +406,7 @@ export default function App() {
             className="max-w-3xl mx-auto mb-10"
           >
             <h2 className="text-3xl md:text-5xl font-black text-white mb-6 leading-tight">
-              배관 전문가를 위한 첫걸음, 지금 <span className="text-point-yellow">배관케어마스터</span>에서
+              배관 전문가를 위한 첫걸음, 지금 <span className="text-point-yellow">달수배관케어 마스터 교육원</span>에서
             </h2>
             <p className="text-lg md:text-2xl text-gray-300 mb-8 leading-relaxed">
               5일간의 압축 실무 교육으로{"\n"}
@@ -470,11 +470,11 @@ export default function App() {
             
             <div className="space-y-12">
               {[
-                { day: "01", title: <><span className="text-point-yellow">이론</span> 교육</>, desc: "배관의 구조 및 원리 이해,\n공구 사용법 숙지", icon: <Briefcase />, image: "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&q=80&w=800" },
-                { day: "02", title: <><span className="text-point-yellow">배관케어</span> 기술</>, desc: "다양한 막힘 상황별 해결 실습 및\n장비 운용 노하우 전수", icon: <Wrench />, image: "https://images.unsplash.com/photo-1585704032915-c3400ca1f963?auto=format&fit=crop&q=80&w=800" },
-                { day: "03", title: <><span className="text-point-yellow">누수 / 방수</span></>, desc: "정밀 탐지 기법 및\n보이지 않는 누수 지점 해결", icon: <ShieldCheck />, image: "https://images.unsplash.com/photo-1517646281553-9b9009400e60?auto=format&fit=crop&q=80&w=800" },
-                { day: "04", title: <><span className="text-point-yellow">고압세척</span> 실전</>, desc: "대형 배관 및 상가 현장\n실전 고압 세척 교육", icon: <Zap />, image: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&q=80&w=800" },
-                { day: "05", title: <><span className="text-point-yellow">브랜딩 & 마케팅</span></>, desc: "온라인 마케팅, 고객 응대,\n오더 창출 실전 노하우", icon: <TrendingUp />, image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800" }
+                { day: "01", title: <><span className="text-point-yellow">장비교육</span> 및 이해</>, desc: "전문 배관 장비의 구조와 원리 이해,\n장비 운용법 및 안전 교육", icon: <Wrench />, image: "/images/education/curriculum-day1-theory.jpg" },
+                { day: "02", title: <><span className="text-point-yellow">기술</span> 훈련</>, desc: "상황별 배관케어 및 막힘 해결 실습,\n핵심 현장 기술 집중 훈련", icon: <Briefcase />, image: "/images/education/curriculum-day2-technique.jpg" },
+                { day: "03", title: <><span className="text-point-yellow">현장기술</span> 실습</>, desc: "실제 현장 맞춤형 기술 실습 및\n실전 고압세척 노하우 습득", icon: <Zap />, image: "/images/education/curriculum-day3-leak-detection.jpg" },
+                { day: "04", title: <><span className="text-point-yellow">홈페이지 / 블로그</span> 제작</>, desc: "신뢰감을 주는 홈페이지형 블로그 제작 및\n맞춤형 홈페이지 제작 지원", icon: <LayoutGrid />, image: "/images/education/curriculum-day4-jet-washing.jpg" },
+                { day: "05", title: <><span className="text-point-yellow">AI 마케팅</span> & 블로그 자동화</>, desc: "AI를 활용한 실전 마케팅 기법 및\n블로그 자동화 관리 시스템 구축", icon: <Cpu />, image: "/images/education/curriculum-day5-marketing.jpg" }
               ].map((item, i) => (
                 <motion.div 
                   key={i}
@@ -547,7 +547,7 @@ export default function App() {
                 자격 인증
               </div>
               <h2 className="text-3xl md:text-5xl font-black text-navy-900 leading-tight">
-                배관케어마스터 <br />
+                달수배관케어 마스터 <br />
                 <span className="text-blue-600">자격증 발급</span>
               </h2>
             </motion.div>
@@ -567,7 +567,7 @@ export default function App() {
               </motion.div>
               <div className="text-center">
                 <p className="text-[8px] tracking-widest opacity-50 mb-1.5">교육 수료증</p>
-                <p className="text-lg md:text-2xl font-black mb-3">배관케어마스터</p>
+                <p className="text-base md:text-xl font-black mb-3">달수배관케어 마스터 교육원</p>
                 <div className="w-12 h-1 bg-point-yellow mx-auto" />
               </div>
               <div className="absolute top-0 right-0 w-24 h-24 bg-white/5 rounded-full -mr-12 -mt-12" />
@@ -609,19 +609,19 @@ export default function App() {
                 badge: "창업 실전 인프라 지원",
                 title: <><span className="text-point-yellow">본사 오더</span> 배정 시스템</>, 
                 desc: <>마케팅 걱정 마세요. 본사 콜센터에서 직접{"\n"}<span className="text-white font-bold">오더를 지역별로 매칭</span>하여 안정적인 일감을 제공합니다.</>,
-                image: "https://images.unsplash.com/photo-1521791136064-7986c2923216?auto=format&fit=crop&q=80&w=1200"
+                image: "/images/services/support-order-dispatch.jpg"
               },
               { 
                 badge: "지역 상권 보호 지원",
                 title: <><span className="text-point-yellow">지역 독점권</span> 및 상권 보호</>, 
                 desc: <>활동 지역의 독점 권한을 부여하여 <span className="text-white font-bold">불필요한 경쟁 없이</span>{"\n"}오직 기술 서비스에만 집중할 수 있도록 돕습니다.</>,
-                image: "https://images.unsplash.com/photo-1527689368864-3a821dbccc34?auto=format&fit=crop&q=80&w=1200"
+                image: "/images/services/support-territory-protection.jpg"
               },
               { 
                 badge: "실전 기술 멘토링 지원",
                 title: <>24/7 <span className="text-point-yellow">실시간 기술 멘토링</span></>, 
                 desc: <>현장에서 예기치 못한 난관에 부딪혔을 때,{"\n"}<span className="text-white font-bold">본사 베테랑 전문가</span>가 실시간 영상 가이드를 제공합니다.</>,
-                image: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=1200"
+                image: "/images/services/support-technical-mentoring.jpg"
               }
             ].map((item, i) => (
               <motion.div 
@@ -667,7 +667,7 @@ export default function App() {
             <h2 className="text-4xl md:text-5xl font-black mb-4 leading-tight whitespace-pre-line">
               성공은{"\n"}더 빠르게
             </h2>
-            <p className="text-white/60 text-lg font-medium">배관케어마스터와 함께한 선배들의 생생한 후기</p>
+            <p className="text-white/60 text-lg font-medium">달수배관케어 마스터 교육원과 함께한 선배들의 생생한 후기</p>
           </div>
           <div className="hidden md:flex gap-4">
             <button className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-point-yellow hover:text-navy-900 transition-all">
@@ -692,33 +692,33 @@ export default function App() {
           >
             {[
               {
-                image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=600",
+                image: "/images/gallery/testimonial-student-kim.jpg",
                 title: "퇴사 후 5일 만에 첫 오더,\n이제는 월 1,000만원 찍습니다",
                 name: "김OO 수강생 | 서울 강남점"
               },
               {
-                image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=600",
+                image: "/images/gallery/testimonial-student-lee.jpg",
                 title: "여성 창업자도 충분히 가능해요!\n본사의 꼼꼼한 케어 덕분입니다",
                 name: "이OO 수강생 | 경기 수원점"
               },
               {
-                image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=600",
+                image: "/images/gallery/testimonial-student-park.jpg",
                 title: "기술 하나로 인생 역전,\nAI 시대에 가장 확실한 투자였습니다",
                 name: "박OO 수강생 | 부산 해운대점"
               },
               {
-                image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80&w=600",
-                title: "막막했던 창업의 길,\n배관케어마스터가 지름길이 되었네요",
+                image: "/images/gallery/testimonial-student-choi.jpg",
+                title: "막막했던 창업의 길,\n달수배관케어 마스터 교육원이 지름길이 되었네요",
                 name: "최OO 수강생 | 인천 송도점"
               },
               // Duplicate for seamless loop
               {
-                image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=600",
+                image: "/images/gallery/testimonial-student-kim.jpg",
                 title: "퇴사 후 5일 만에 첫 오더,\n이제는 월 1,000만원 찍습니다",
                 name: "김OO 수강생 | 서울 강남점"
               },
               {
-                image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=600",
+                image: "/images/gallery/testimonial-student-lee.jpg",
                 title: "여성 창업자도 충분히 가능해요!\n본사의 꼼꼼한 케어 덕분입니다",
                 name: "이OO 수강생 | 경기 수원점"
               }
@@ -769,7 +769,7 @@ export default function App() {
               className="relative w-full max-w-[320px] md:max-w-md aspect-video rounded-3xl overflow-hidden shadow-2xl mb-10 border-4 border-white/10"
             >
               <img 
-                src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&q=80&w=800" 
+                src="/images/services/outlook-ai-technology.jpg" 
                 alt="AI vs Human" 
                 className="w-full h-full object-cover grayscale"
                 referrerPolicy="no-referrer"
@@ -820,7 +820,7 @@ export default function App() {
                 <span>앱 전용 혜택</span>
               </div>
               <h2 className="text-xl md:text-4xl font-black text-white mb-2 leading-tight">
-                현장의 모든 것, <span className="text-point-yellow">배관케어마스터</span> 앱
+                현장의 모든 것, <span className="text-point-yellow">달수배관케어</span> 앱
               </h2>
               <p className="text-[11px] md:text-lg text-gray-400 mb-4 leading-relaxed max-w-md mx-auto">
                 실시간 오더부터 기술 지원까지. 성공 창업의 필수 파트너.
@@ -852,7 +852,7 @@ export default function App() {
                     </div>
                   </div>
                   <img 
-                    src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&q=80&w=800" 
+                    src="/images/services/app-screenshot.jpg" 
                     alt="App Screenshot" 
                     className="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-overlay"
                     referrerPolicy="no-referrer"
@@ -893,7 +893,7 @@ export default function App() {
         {/* Background Image with Overlay */}
         <div className="absolute inset-0 z-0">
           <img 
-            src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=1920" 
+            src="/images/backgrounds/cta-counselor-bg.jpg" 
             alt="Counselor Background" 
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
@@ -932,7 +932,7 @@ export default function App() {
                   const name = formData.get('name');
                   const phone = formData.get('phone');
                   const region = formData.get('region');
-                  const message = `[배관케어마스터 교육신청]\n성함: ${name}\n연락처: ${phone}\n지역: ${region}`;
+                  const message = `[달수배관케어 마스터 교육원 신청]\n성함: ${name}\n연락처: ${phone}\n지역: ${region}`;
                   window.location.href = `sms:01044993866?body=${encodeURIComponent(message)}`;
                 }}
                 className="space-y-6"
@@ -1007,10 +1007,10 @@ export default function App() {
                 <motion.div whileHover={{ rotate: 360, scale: 1.2 }} transition={{ duration: 0.8 }}>
                   <Zap className="text-point-yellow w-8 h-8" />
                 </motion.div>
-                <span className="text-2xl font-black tracking-tighter">배관케어마스터</span>
+                <span className="text-2xl font-black tracking-tighter">달수배관케어 마스터 교육원</span>
               </div>
               <p className="text-gray-400 max-w-md leading-relaxed">
-                배관케어마스터는 대한민국 최고의 배관 기술 전문가 양성 기관입니다. 
+                달수배관케어 마스터 교육원은 대한민국 최고의 배관 기술 전문가 양성 기관입니다. 
                 단순한 기술 전수를 넘어, 성공적인 창업과 안정적인 수익 창출을 위한 
                 완벽한 파트너가 되어 드립니다.
               </p>
@@ -1038,7 +1038,7 @@ export default function App() {
             </div>
           </div>
           <div className="pt-8 border-t border-white/10 text-center text-gray-500 text-sm">
-            © 2026 배관케어마스터. All rights reserved.
+            © 2026 달수배관케어 마스터 교육원. All rights reserved.
           </div>
         </div>
       </footer>
