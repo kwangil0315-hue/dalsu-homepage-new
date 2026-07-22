@@ -124,7 +124,11 @@ export default function App() {
 
   // Dynamic Logo State
   const [logoUrl, setLogoUrl] = useState<string>(() => {
-    return localStorage.getItem('dalsu_custom_logo_url') || logoDefaultImg;
+    const saved = localStorage.getItem('dalsu_custom_logo_url');
+    if (saved && (saved.startsWith('data:') || saved.startsWith('blob:'))) {
+      return saved;
+    }
+    return logoDefaultImg;
   });
   const [logoHeight, setLogoHeight] = useState<number>(() => {
     const saved = localStorage.getItem('dalsu_custom_logo_height');
@@ -206,7 +210,10 @@ export default function App() {
                 alt="배관케어 마스터 교육원 로고" 
                 style={{ height: `${logoHeight}px` }}
                 className="w-auto object-contain rounded-lg transition-all"
-                referrerPolicy="no-referrer"
+                onError={(e) => {
+                  e.currentTarget.onerror = null;
+                  e.currentTarget.src = logoDefaultImg;
+                }}
               />
               <div className="flex flex-col -space-y-0.5">
                 <span className="text-lg md:text-xl font-black text-navy-900 tracking-tighter">배관케어 마스터</span>
@@ -280,7 +287,10 @@ export default function App() {
             src={heroSlide01Img} 
             alt="배관케어 마스터 교육원 대표 배경" 
             className="w-full h-full object-cover object-center brightness-100"
-            referrerPolicy="no-referrer"
+            onError={(e) => {
+              e.currentTarget.onerror = null;
+              e.currentTarget.src = logoDefaultImg;
+            }}
           />
           {/* Subtle dark gradient overlay to ensure text contrast while keeping background clear */}
           <div className="absolute inset-0 bg-gradient-to-r from-navy-950/75 via-navy-950/40 to-transparent" />
@@ -420,9 +430,12 @@ export default function App() {
                 <div className="relative h-[350px] md:h-[450px] rounded-[2.5rem] overflow-hidden group shadow-2xl border border-white/10">
                   <img 
                     src={item.image} 
-                    alt={item.title} 
+                    alt="Problem Item" 
                     className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
-                    referrerPolicy="no-referrer"
+                    onError={(e) => {
+                      e.currentTarget.onerror = null;
+                      e.currentTarget.src = heroSlide01Img;
+                    }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
                   <div className="absolute inset-0 p-8 md:p-16 flex flex-col justify-end">
@@ -571,7 +584,10 @@ export default function App() {
                           src={item.image} 
                           alt="Curriculum Step" 
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                          referrerPolicy="no-referrer"
+                          onError={(e) => {
+                            e.currentTarget.onerror = null;
+                            e.currentTarget.src = heroSlide01Img;
+                          }}
                         />
                       </motion.div>
                     </div>
@@ -690,9 +706,12 @@ export default function App() {
                 <div className="relative h-[350px] md:h-[450px] rounded-[2.5rem] overflow-hidden group shadow-2xl border border-white/10">
                   <img 
                     src={item.image} 
-                    alt={item.title} 
+                    alt="Support Service" 
                     className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
-                    referrerPolicy="no-referrer"
+                    onError={(e) => {
+                      e.currentTarget.onerror = null;
+                      e.currentTarget.src = heroSlide01Img;
+                    }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
                   <div className="absolute inset-0 p-8 md:p-16 flex flex-col justify-end">
@@ -784,7 +803,10 @@ export default function App() {
                     src={item.image} 
                     alt="Student" 
                     className="w-full h-full object-cover"
-                    referrerPolicy="no-referrer"
+                    onError={(e) => {
+                      e.currentTarget.onerror = null;
+                      e.currentTarget.src = heroSlide01Img;
+                    }}
                   />
                 </div>
                 <h3 className="text-xl md:text-2xl font-black text-white mb-3 leading-tight whitespace-pre-line">
@@ -827,7 +849,10 @@ export default function App() {
                 src={outlookAiTechImg} 
                 alt="AI vs Human" 
                 className="w-full h-full object-cover grayscale"
-                referrerPolicy="no-referrer"
+                onError={(e) => {
+                  e.currentTarget.onerror = null;
+                  e.currentTarget.src = heroSlide01Img;
+                }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-navy-900 via-transparent to-transparent opacity-60" />
             </motion.div>
@@ -910,7 +935,10 @@ export default function App() {
                     src={appScreenshotImg} 
                     alt="App Screenshot" 
                     className="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-overlay"
-                    referrerPolicy="no-referrer"
+                    onError={(e) => {
+                      e.currentTarget.onerror = null;
+                      e.currentTarget.src = heroSlide01Img;
+                    }}
                   />
                 </div>
               </motion.div>
@@ -951,7 +979,10 @@ export default function App() {
             src={ctaCounselorBgImg} 
             alt="Counselor Background" 
             className="w-full h-full object-cover"
-            referrerPolicy="no-referrer"
+            onError={(e) => {
+              e.currentTarget.onerror = null;
+              e.currentTarget.src = heroSlide01Img;
+            }}
           />
           <div className="absolute inset-0 bg-navy-900/85 backdrop-blur-[2px]" />
         </div>
@@ -1064,7 +1095,10 @@ export default function App() {
                   alt="배관케어 마스터 교육원 로고" 
                   style={{ height: `${Math.max(logoHeight, 36)}px` }}
                   className="w-auto object-contain rounded-xl bg-white/10 p-1 transition-all"
-                  referrerPolicy="no-referrer"
+                  onError={(e) => {
+                    e.currentTarget.onerror = null;
+                    e.currentTarget.src = logoDefaultImg;
+                  }}
                 />
                 <span className="text-2xl font-black tracking-tighter">배관케어 마스터 교육원</span>
                 {isDevEnv && (
@@ -1150,6 +1184,10 @@ export default function App() {
                     alt="미리보기 로고" 
                     style={{ height: `${logoHeight}px` }}
                     className="w-auto object-contain max-w-full transition-all"
+                    onError={(e) => {
+                      e.currentTarget.onerror = null;
+                      e.currentTarget.src = logoDefaultImg;
+                    }}
                   />
                 </div>
               </div>
