@@ -39,7 +39,7 @@ const slides = [
   },
   {
     image: "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&q=80&w=1920",
-    title: <>단 <span className="text-point-yellow">5일</span>의 투자로{"\n"}월 <span className="text-point-yellow">800만원</span> 수익의 주인공이 되세요</>,
+    title: <>단 <span className="text-point-yellow">5일</span>의 투자로{"\n"}월 <span className="text-point-yellow">1000만원</span> 수익의 주인공이 되세요</>,
     subtitle: "배관케어마스터 | 압도적인 수익 창출의 기회"
   },
   {
