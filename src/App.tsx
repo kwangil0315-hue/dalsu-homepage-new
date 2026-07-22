@@ -27,27 +27,13 @@ import {
   Smartphone,
   Download,
   LayoutGrid,
-  Bell
+  Bell,
+  Upload,
+  Sliders,
+  RotateCcw,
+  ImagePlus
 } from "lucide-react";
 import React, { useState, useEffect } from "react";
-
-const slides = [
-  {
-    image: "/images/hero/hero-slide-01.jpg",
-    title: <>배관은 집의 <span className="text-point-yellow">혈관</span>입니다{"\n"}우리는 <span className="text-point-yellow">배관 전문의</span>를 양성합니다</>,
-    subtitle: "달수배관케어 마스터 교육원 | 기술의 가치를 아는 사람들"
-  },
-  {
-    image: "/images/hero/hero-slide-02.jpg",
-    title: <>단 <span className="text-point-yellow">5일</span>의 투자로{"\n"}월 <span className="text-point-yellow">1000만원</span> 수익의 주인공이 되세요</>,
-    subtitle: "달수배관케어 마스터 교육원 | 압도적인 수익 창출의 기회"
-  },
-  {
-    image: "/images/hero/hero-slide-03.jpg",
-    title: <><span className="text-point-yellow">AI도 로봇도</span> 대체 불가{"\n"}은퇴 걱정 없는 <span className="text-point-yellow">평생 기술 독립</span></>,
-    subtitle: "달수배관케어 마스터 교육원 | 기술이 곧 자산이 되는 시대"
-  }
-];
 
 const CTAButton = ({ className = "", children, variant = "primary" }: { className?: string, children: React.ReactNode, variant?: "primary" | "secondary" | "outline" }) => {
   const baseStyles = "px-8 py-4 rounded-full font-bold text-lg transition-all duration-300 flex items-center justify-center gap-2 group";
@@ -110,7 +96,52 @@ const Counter = ({ value, suffix = "" }: { value: number, suffix?: string }) => 
 
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [currentSlide, setCurrentSlide] = useState(0);
+
+  // Dynamic Logo State
+  const [logoUrl, setLogoUrl] = useState<string>(() => {
+    return localStorage.getItem('dalsu_custom_logo_url') || '/images/logo/dalsu-logo.jpg';
+  });
+  const [logoHeight, setLogoHeight] = useState<number>(() => {
+    const saved = localStorage.getItem('dalsu_custom_logo_height');
+    return saved ? parseInt(saved, 10) : 44;
+  });
+  const [isLogoModalOpen, setIsLogoModalOpen] = useState(false);
+
+  const handleLogoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const dataUrl = event.target?.result as string;
+        if (dataUrl) {
+          setLogoUrl(dataUrl);
+          localStorage.setItem('dalsu_custom_logo_url', dataUrl);
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleLogoHeightChange = (newHeight: number) => {
+    setLogoHeight(newHeight);
+    localStorage.setItem('dalsu_custom_logo_height', newHeight.toString());
+  };
+
+  const handleResetLogo = () => {
+    setLogoUrl('/images/logo/dalsu-logo.jpg');
+    setLogoHeight(44);
+    localStorage.removeItem('dalsu_custom_logo_url');
+    localStorage.removeItem('dalsu_custom_logo_height');
+  };
+
+  // Check if running in development mode or explicitly enabled via URL param
+  const isDevEnv = typeof window !== 'undefined' && (
+    window.location.hostname.includes('ais-dev') || 
+    window.location.hostname === 'localhost' || 
+    window.location.hostname === '127.0.0.1' ||
+    window.location.search.includes('editLogo=true')
+  );
+
   const curriculumRef = React.useRef(null);
   const { scrollYProgress } = useScroll({
     target: curriculumRef,
@@ -121,13 +152,6 @@ export default function App() {
     damping: 30,
     restDelta: 0.001
   });
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, []);
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
@@ -145,22 +169,36 @@ export default function App() {
   return (
     <div className="min-h-screen font-sans scroll-smooth">
       {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-gray-100">
+      <nav className="fixed top-0 w-full z-50 bg-white border-b border-gray-100 shadow-sm">
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-          <div className="flex items-center gap-3 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-            <div className="flex items-center gap-2">
-              <motion.div 
-                whileHover={{ rotate: 15, scale: 1.1 }}
-                className="relative"
-              >
-                <FlaskConical className="w-10 h-10 text-blue-600" />
-                <div className="absolute -top-1 -right-1 w-3 h-3 bg-cyan-400 rounded-full animate-pulse" />
-              </motion.div>
+          <div className="flex items-center gap-3">
+            <div 
+              className="flex items-center gap-2.5 cursor-pointer group"
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            >
+              <img 
+                src={logoUrl} 
+                alt="배관케어 마스터 교육원 로고" 
+                style={{ height: `${logoHeight}px` }}
+                className="w-auto object-contain rounded-lg transition-all"
+                referrerPolicy="no-referrer"
+              />
               <div className="flex flex-col -space-y-0.5">
-                <span className="text-lg md:text-xl font-black text-navy-900 tracking-tighter">달수배관케어</span>
-                <span className="text-[10px] md:text-xs font-bold text-blue-600 tracking-wider">마스터 교육원</span>
+                <span className="text-lg md:text-xl font-black text-navy-900 tracking-tighter">배관케어 마스터</span>
+                <span className="text-[10px] md:text-xs font-bold text-blue-600 tracking-wider">교육원</span>
               </div>
             </div>
+
+            {isDevEnv && (
+              <button
+                onClick={() => setIsLogoModalOpen(true)}
+                className="flex items-center gap-1.5 text-xs bg-blue-50 text-blue-600 hover:bg-blue-100 px-2.5 py-1.5 rounded-lg font-bold transition-all border border-blue-200/80 shadow-sm ml-1"
+                title="로고 직접 첨부 및 크기 조절 (개발 모드 전용)"
+              >
+                <Sliders className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">로고 첨부/조절</span>
+              </button>
+            )}
           </div>
 
           {/* Desktop Navigation */}
@@ -210,84 +248,76 @@ export default function App() {
         )}
       </AnimatePresence>
 
-      {/* Hero Section - Image Slider */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        <AnimatePresence mode="wait">
-          <motion.div 
-            key={currentSlide}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 1 }}
-            className="absolute inset-0 z-0"
-          >
-            <img 
-              src={slides[currentSlide].image} 
-              alt="Hero background" 
-              className="w-full h-full object-cover brightness-[0.5]"
-              referrerPolicy="no-referrer"
-            />
-            <div className="absolute inset-0 bg-black/20" />
-          </motion.div>
-        </AnimatePresence>
+      {/* Hero Section - Fixed Single Hero Slide */}
+      <section className="relative min-h-screen flex items-center overflow-hidden pt-20">
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="/images/hero/hero-slide-01.jpg" 
+            alt="배관케어 마스터 교육원 대표 배경" 
+            className="w-full h-full object-cover object-center brightness-100"
+            referrerPolicy="no-referrer"
+          />
+          {/* Subtle dark gradient overlay to ensure text contrast while keeping background clear */}
+          <div className="absolute inset-0 bg-gradient-to-r from-navy-950/75 via-navy-950/40 to-transparent" />
+        </div>
 
-        <div className="relative z-10 text-center px-4 max-w-4xl">
-          <AnimatePresence mode="wait">
+        <div className="relative z-10 max-w-7xl mx-auto px-6 py-12 md:py-20 w-full flex justify-start">
+          <div className="max-w-xl md:max-w-2xl text-left">
             <motion.div
-              key={currentSlide}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 25 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.8 }}
+              className="space-y-6"
             >
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-white mb-6 leading-[1.2] drop-shadow-lg whitespace-pre-line">
-                {slides[currentSlide].title}
+              {/* Badge highlighting key value */}
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-600/90 text-white border border-blue-400/50 text-xs md:text-sm font-bold shadow-xl backdrop-blur-sm">
+                <span className="w-2.5 h-2.5 rounded-full bg-point-yellow animate-pulse" />
+                <span>AI · 로봇 대체 불가 | 평생 기술 독립</span>
+              </div>
+
+              {/* Main Headline with high contrast white & point yellow accents */}
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white leading-[1.25] drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
+                단 <span className="text-point-yellow text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black">5일</span>의 투자로{"\n"}
+                월 <span className="text-point-yellow text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black">1,000만원</span> 수익의{"\n"}
+                주인공이 되세요
               </h1>
-              <p className="text-xl md:text-2xl text-gray-200 font-medium tracking-wide whitespace-pre-line">
-                {slides[currentSlide].subtitle}
+
+              {/* Subheadline with clear text contrast */}
+              <p className="text-base md:text-xl text-gray-100 font-bold leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
+                기술이 곧 자산이 되는 시대! 은퇴 걱정 없는 고수익 평생 기술.{"\n"}
+                <span className="text-point-yellow font-black border-b-2 border-point-yellow pb-0.5">배관케어 마스터 교육원</span>에서 1:1 맞춤 실무 기술 교육으로 성공적인 창업을 완성해 드립니다.
               </p>
+
+              {/* Action Buttons */}
+              <div className="flex flex-wrap items-center gap-4 pt-2">
+                <button 
+                  onClick={() => document.getElementById('final-cta')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="px-8 py-4 rounded-2xl bg-point-yellow hover:bg-yellow-400 text-navy-900 font-black text-lg transition-all shadow-xl shadow-yellow-500/20 flex items-center gap-2 group"
+                >
+                  <span>수강 및 창업 상담</span>
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </button>
+                <button 
+                  onClick={() => document.getElementById('curriculum')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="px-8 py-4 rounded-2xl bg-white/15 hover:bg-white/25 text-white font-bold text-lg transition-all border border-white/30 backdrop-blur-sm"
+                >
+                  5일 커리큘럼 보기
+                </button>
+              </div>
             </motion.div>
-          </AnimatePresence>
-        </div>
-
-        {/* Slider Controls */}
-        <div className="absolute bottom-24 left-1/2 -translate-x-1/2 flex items-center gap-8 z-20 w-full max-w-xl px-6">
-          <div className="flex gap-3">
-            {slides.map((_, i) => (
-              <button 
-                key={i}
-                onClick={() => setCurrentSlide(i)}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${currentSlide === i ? 'bg-white w-8' : 'bg-white/40'}`}
-              />
-            ))}
-          </div>
-          
-          <div className="flex-1 h-[2px] bg-white/20 relative">
-            <motion.div 
-              className="absolute top-0 left-0 h-full bg-white"
-              initial={{ width: "0%" }}
-              animate={{ width: `${((currentSlide + 1) / slides.length) * 100}%` }}
-              transition={{ duration: 0.5 }}
-            />
-          </div>
-
-          <div className="text-white font-mono text-lg">
-            <span className="font-bold">{String(currentSlide + 1).padStart(2, '0')}</span>
-            <span className="opacity-40 mx-2">/</span>
-            <span className="opacity-40">{String(slides.length).padStart(2, '0')}</span>
           </div>
         </div>
 
-        {/* Scroll Down */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/60 z-20">
-          <div className="w-6 h-10 border-2 border-white/40 rounded-full flex justify-center p-1">
+        {/* Scroll Down Indicator */}
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/80 z-20">
+          <div className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center p-1 bg-black/20 backdrop-blur-sm">
             <motion.div 
               animate={{ y: [0, 12, 0] }}
               transition={{ duration: 1.5, repeat: Infinity }}
-              className="w-1 h-2 bg-white/60 rounded-full"
+              className="w-1 h-2 bg-white rounded-full"
             />
           </div>
-          <span className="text-[10px] font-bold tracking-[0.2em]">아래로 스크롤</span>
+          <span className="text-[10px] font-bold tracking-[0.2em] drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">아래로 스크롤</span>
         </div>
       </section>
 
@@ -406,7 +436,7 @@ export default function App() {
             className="max-w-3xl mx-auto mb-10"
           >
             <h2 className="text-3xl md:text-5xl font-black text-white mb-6 leading-tight">
-              배관 전문가를 위한 첫걸음, 지금 <span className="text-point-yellow">달수배관케어 마스터 교육원</span>에서
+              배관 전문가를 위한 첫걸음, 지금 <span className="text-point-yellow">배관케어 마스터 교육원</span>에서
             </h2>
             <p className="text-lg md:text-2xl text-gray-300 mb-8 leading-relaxed">
               5일간의 압축 실무 교육으로{"\n"}
@@ -547,7 +577,7 @@ export default function App() {
                 자격 인증
               </div>
               <h2 className="text-3xl md:text-5xl font-black text-navy-900 leading-tight">
-                달수배관케어 마스터 <br />
+                배관케어 마스터 <br />
                 <span className="text-blue-600">자격증 발급</span>
               </h2>
             </motion.div>
@@ -567,7 +597,7 @@ export default function App() {
               </motion.div>
               <div className="text-center">
                 <p className="text-[8px] tracking-widest opacity-50 mb-1.5">교육 수료증</p>
-                <p className="text-base md:text-xl font-black mb-3">달수배관케어 마스터 교육원</p>
+                <p className="text-base md:text-xl font-black mb-3">배관케어 마스터 교육원</p>
                 <div className="w-12 h-1 bg-point-yellow mx-auto" />
               </div>
               <div className="absolute top-0 right-0 w-24 h-24 bg-white/5 rounded-full -mr-12 -mt-12" />
@@ -667,7 +697,7 @@ export default function App() {
             <h2 className="text-4xl md:text-5xl font-black mb-4 leading-tight whitespace-pre-line">
               성공은{"\n"}더 빠르게
             </h2>
-            <p className="text-white/60 text-lg font-medium">달수배관케어 마스터 교육원과 함께한 선배들의 생생한 후기</p>
+            <p className="text-white/60 text-lg font-medium">배관케어 마스터 교육원과 함께한 선배들의 생생한 후기</p>
           </div>
           <div className="hidden md:flex gap-4">
             <button className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-point-yellow hover:text-navy-900 transition-all">
@@ -708,7 +738,7 @@ export default function App() {
               },
               {
                 image: "/images/gallery/testimonial-student-choi.jpg",
-                title: "막막했던 창업의 길,\n달수배관케어 마스터 교육원이 지름길이 되었네요",
+                title: "막막했던 창업의 길,\n배관케어 마스터 교육원이 지름길이 되었네요",
                 name: "최OO 수강생 | 인천 송도점"
               },
               // Duplicate for seamless loop
@@ -820,7 +850,7 @@ export default function App() {
                 <span>앱 전용 혜택</span>
               </div>
               <h2 className="text-xl md:text-4xl font-black text-white mb-2 leading-tight">
-                현장의 모든 것, <span className="text-point-yellow">달수배관케어</span> 앱
+                현장의 모든 것, <span className="text-point-yellow">배관케어 마스터</span> 앱
               </h2>
               <p className="text-[11px] md:text-lg text-gray-400 mb-4 leading-relaxed max-w-md mx-auto">
                 실시간 오더부터 기술 지원까지. 성공 창업의 필수 파트너.
@@ -932,7 +962,7 @@ export default function App() {
                   const name = formData.get('name');
                   const phone = formData.get('phone');
                   const region = formData.get('region');
-                  const message = `[달수배관케어 마스터 교육원 신청]\n성함: ${name}\n연락처: ${phone}\n지역: ${region}`;
+                  const message = `[배관케어 마스터 교육원 신청]\n성함: ${name}\n연락처: ${phone}\n지역: ${region}`;
                   window.location.href = `sms:01044993866?body=${encodeURIComponent(message)}`;
                 }}
                 className="space-y-6"
@@ -1003,14 +1033,30 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid md:grid-cols-4 gap-12 mb-16">
             <div className="col-span-2">
-              <div className="flex items-center gap-2 mb-6 group cursor-pointer">
-                <motion.div whileHover={{ rotate: 360, scale: 1.2 }} transition={{ duration: 0.8 }}>
-                  <Zap className="text-point-yellow w-8 h-8" />
-                </motion.div>
-                <span className="text-2xl font-black tracking-tighter">달수배관케어 마스터 교육원</span>
+              <div className="flex items-center gap-3 mb-6 group cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+                <img 
+                  src={logoUrl} 
+                  alt="배관케어 마스터 교육원 로고" 
+                  style={{ height: `${Math.max(logoHeight, 36)}px` }}
+                  className="w-auto object-contain rounded-xl bg-white/10 p-1 transition-all"
+                  referrerPolicy="no-referrer"
+                />
+                <span className="text-2xl font-black tracking-tighter">배관케어 마스터 교육원</span>
+                {isDevEnv && (
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setIsLogoModalOpen(true);
+                    }}
+                    className="ml-2 text-xs bg-white/10 hover:bg-white/20 text-white px-2.5 py-1 rounded-md border border-white/20 transition-all flex items-center gap-1"
+                  >
+                    <Sliders className="w-3 h-3" />
+                    <span>로고 설정</span>
+                  </button>
+                )}
               </div>
               <p className="text-gray-400 max-w-md leading-relaxed">
-                달수배관케어 마스터 교육원은 대한민국 최고의 배관 기술 전문가 양성 기관입니다. 
+                배관케어 마스터 교육원은 대한민국 최고의 배관 기술 전문가 양성 기관입니다. 
                 단순한 기술 전수를 넘어, 성공적인 창업과 안정적인 수익 창출을 위한 
                 완벽한 파트너가 되어 드립니다.
               </p>
@@ -1038,10 +1084,118 @@ export default function App() {
             </div>
           </div>
           <div className="pt-8 border-t border-white/10 text-center text-gray-500 text-sm">
-            © 2026 달수배관케어 마스터 교육원. All rights reserved.
+            © 2026 배관케어 마스터 교육원. All rights reserved.
           </div>
         </div>
       </footer>
+
+      {/* Logo Customizer Modal */}
+      <AnimatePresence>
+        {isLogoModalOpen && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-navy-900/70 backdrop-blur-sm">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 10 }}
+              className="bg-white rounded-3xl shadow-2xl max-w-md w-full p-6 text-navy-900 relative overflow-hidden border border-gray-100"
+            >
+              <button
+                onClick={() => setIsLogoModalOpen(false)}
+                className="absolute top-5 right-5 text-gray-400 hover:text-navy-900 p-2 rounded-full hover:bg-gray-100 transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-10 h-10 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold border border-blue-100">
+                  <ImagePlus className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-navy-900">로고 이미지 첨부 &amp; 크기 설정</h3>
+                  <p className="text-xs text-gray-500">원하는 로고 이미지 파일 등록 및 세밀한 높이 조절</p>
+                </div>
+              </div>
+
+              {/* Live Preview Box */}
+              <div className="mb-6 p-4 rounded-2xl bg-gray-50 border border-gray-200/80 flex flex-col items-center justify-center min-h-[130px] relative">
+                <p className="text-[11px] font-bold text-gray-400 mb-2 tracking-wider uppercase">현재 로고 미리보기</p>
+                <div className="p-2 bg-white rounded-xl shadow-sm border border-gray-100 flex items-center justify-center max-w-full overflow-hidden">
+                  <img 
+                    src={logoUrl} 
+                    alt="미리보기 로고" 
+                    style={{ height: `${logoHeight}px` }}
+                    className="w-auto object-contain max-w-full transition-all"
+                  />
+                </div>
+              </div>
+
+              {/* File Upload Slot */}
+              <div className="mb-6">
+                <label className="block text-sm font-extrabold mb-2 text-navy-900">
+                  1. 로고 이미지 파일 직접 첨부
+                </label>
+                <label className="flex flex-col items-center justify-center w-full h-28 border-2 border-dashed border-blue-200 hover:border-blue-600 rounded-2xl cursor-pointer bg-blue-50/30 hover:bg-blue-50/80 transition-all group p-3 text-center">
+                  <Upload className="w-6 h-6 text-blue-500 group-hover:scale-110 mb-1.5 transition-transform" />
+                  <span className="text-xs font-bold text-navy-900 group-hover:text-blue-600">
+                    내 PC에서 이미지 파일 선택 (JPG, PNG, SVG, WebP)
+                  </span>
+                  <span className="text-[11px] text-gray-400 mt-1">
+                    클릭하거나 파일 선택 시 바로 적용 및 저장됩니다.
+                  </span>
+                  <input 
+                    type="file" 
+                    accept="image/*" 
+                    onChange={handleLogoChange}
+                    className="hidden" 
+                  />
+                </label>
+              </div>
+
+              {/* Height Slider */}
+              <div className="mb-6">
+                <div className="flex items-center justify-between mb-2">
+                  <label className="text-sm font-extrabold text-navy-900">
+                    2. 로고 표시 크기 조절 (높이)
+                  </label>
+                  <span className="text-xs font-black text-blue-600 bg-blue-50 px-2.5 py-1 rounded-lg border border-blue-100">
+                    {logoHeight}px
+                  </span>
+                </div>
+                <input 
+                  type="range" 
+                  min="20" 
+                  max="120" 
+                  value={logoHeight}
+                  onChange={(e) => handleLogoHeightChange(Number(e.target.value))}
+                  className="w-full accent-blue-600 h-2 bg-gray-200 rounded-lg cursor-pointer"
+                />
+                <div className="flex justify-between text-[11px] font-semibold text-gray-400 mt-1.5">
+                  <span>작게 (20px)</span>
+                  <span>기본 (44px)</span>
+                  <span>크게 (120px)</span>
+                </div>
+              </div>
+
+              {/* Actions */}
+              <div className="flex items-center justify-between pt-4 border-t border-gray-100 gap-3">
+                <button
+                  onClick={handleResetLogo}
+                  className="flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl text-xs font-bold text-gray-500 hover:bg-gray-100 hover:text-navy-900 transition-colors border border-gray-200"
+                >
+                  <RotateCcw className="w-3.5 h-3.5" />
+                  <span>초기화</span>
+                </button>
+                <button
+                  onClick={() => setIsLogoModalOpen(false)}
+                  className="flex-1 py-3 rounded-xl bg-navy-900 text-white font-bold text-sm hover:bg-blue-600 transition-colors shadow-lg shadow-navy-900/10"
+                >
+                  설정 완료
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
