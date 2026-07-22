@@ -34,6 +34,7 @@ import {
   ImagePlus
 } from "lucide-react";
 import React, { useState, useEffect } from "react";
+import heroSlide01Img from "./assets/images/hero-slide-01.jpg";
 
 const CTAButton = ({ className = "", children, variant = "primary" }: { className?: string, children: React.ReactNode, variant?: "primary" | "secondary" | "outline" }) => {
   const baseStyles = "px-8 py-4 rounded-full font-bold text-lg transition-all duration-300 flex items-center justify-center gap-2 group";
@@ -252,7 +253,7 @@ export default function App() {
       <section className="relative min-h-screen flex items-center overflow-hidden pt-20">
         <div className="absolute inset-0 z-0">
           <img 
-            src="/images/hero/hero-slide-01.jpg" 
+            src={heroSlide01Img} 
             alt="배관케어 마스터 교육원 대표 배경" 
             className="w-full h-full object-cover object-center brightness-100"
             referrerPolicy="no-referrer"
